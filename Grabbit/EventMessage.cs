@@ -11,15 +11,5 @@ namespace Grabbit
         public string Body { get; set; }
         public string RoutingKey { get; set; }
         public string Topic { get; set; }
-
-
-        /// <summary>
-        /// Converts this EventMessage to a byte array.
-        /// </summary>
-        /// <returns></returns>
-        public byte[] BodyToByteArray()
-        {
-            return Encoding.UTF8.GetBytes(Body);
-        }
     }
 }

@@ -24,7 +24,7 @@ namespace Grabbit.EventProcessing.EventImplementations
             Channel.BasicPublish(exchange: topic,
                 routingKey: routingKey,
                 basicProperties: null,
-                body: eventBody.BodyToByteArray());
+                body: Encoding.UTF8.GetBytes(eventBody.Body));
         }
 
         public void BasicConsume(string topic, string routing, Action<EventMessage> callback)
