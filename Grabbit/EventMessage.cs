@@ -17,10 +17,9 @@ namespace Grabbit
         /// Converts this EventMessage to a byte array.
         /// </summary>
         /// <returns></returns>
-        public byte[] ToByteArray()
+        public byte[] BodyToByteArray()
         {
-            var jsonValue = JsonConvert.SerializeObject(this);
-            return Encoding.UTF8.GetBytes(jsonValue);
+            return Encoding.UTF8.GetBytes(Body);
         }
     }
 }

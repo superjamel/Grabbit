@@ -12,12 +12,10 @@ namespace Grabbit.Test
         {
             var eventMessage = new EventMessage() { Body = "test"};
 
-            var actual = eventMessage.ToByteArray();
+            var actual = eventMessage.BodyToByteArray();
+            
 
-            var expectedString = JsonConvert.SerializeObject(new EventMessage() {Body = "test"});
-            var expectedByteArray = Encoding.UTF8.GetBytes(expectedString);
-
-            CollectionAssert.AreEqual(expectedByteArray, actual);
+            CollectionAssert.AreEqual(Encoding.UTF8.GetBytes("test"), actual);
         }
     }
 }

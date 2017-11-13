@@ -1,10 +1,7 @@
 ﻿using Grabbit.EventProcessing.EventInterfaces;
-using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using RabbitMQ.Client.Events;
 
 namespace Grabbit.EventProcessing.EventImplementations
@@ -17,12 +14,20 @@ namespace Grabbit.EventProcessing.EventImplementations
         {
             Channel = channel;
         }
-        public void PublishEventAsync(EventMessage eventBody)
+
+        public void BasicPublish(EventMessage eventBody)
         {
-            throw new NotImplementedException();
+            var topic = eventBody.Topic;
+            var routingKey = eventBody.RoutingKey;
+            Channel.ExchangeDeclare(topic, "topic");
+
+            Channel.BasicPublish(exchange: topic,
+                routingKey: routingKey,
+                basicProperties: null,
+                body: eventBody.BodyToByteArray());
         }
 
-        public void ConsumeEvent(string topic, string routing, Action<EventMessage> callback)
+        public void BasicConsume(string topic, string routing, Action<EventMessage> callback)
         {
             var queueName = Channel.QueueDeclare().QueueName;
             Channel.QueueBind(queueName, topic, routing);
@@ -30,8 +35,7 @@ namespace Grabbit.EventProcessing.EventImplementations
             var consumer = new EventingBasicConsumer(Channel);
             consumer.Received += (model, ea) =>
             {
-                var body = ea.Body;
-                var message = Encoding.UTF8.GetString(body);
+                var message = Encoding.UTF8.GetString(ea.Body);
                 callback.Invoke(new EventMessage()
                 {
                     Body = message,

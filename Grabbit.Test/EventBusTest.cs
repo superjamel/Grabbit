@@ -27,7 +27,7 @@ namespace Grabbit.Test
             var waitHandle = new ManualResetEvent(false);
 
             // Act
-            sut.ConsumeEvent("log_topic", "*.log.*", eventMessage =>
+            sut.BasicConsume("log_topic", "*.log.*", eventMessage =>
             {
                 caughtEvent = eventMessage;
                 waitHandle.Set();
@@ -44,6 +44,45 @@ namespace Grabbit.Test
             Assert.AreEqual("message body", caughtEvent.Body);
             Assert.AreEqual("localhost.log.info", caughtEvent.RoutingKey);
             Assert.AreEqual("log_topic", caughtEvent.Topic);
+        }
+
+        [TestMethod]
+        public void BasicPublish_EventMessage_ShouldPublishTheEventToRabbitMQ()
+        {
+            // Arrange
+            var connectionFactory = new ConnectionFactory { HostName = "localhost" };
+            var connection = connectionFactory.CreateConnection();
+            var channel = connection.CreateModel();
+            var topicName = TestContext.TestName + "-topic";
+            channel.ExchangeDeclare(exchange: topicName,
+                type: "topic");
+            var queue = channel.QueueDeclare();
+            channel.QueueBind(queue.QueueName, topicName, "#");
+            var consumer = new EventingBasicConsumer(channel);
+            BasicDeliverEventArgs actualEventArgs = null;
+            var waitHandle = new ManualResetEvent(false);
+            consumer.Received += (model, eventArgs) =>
+            {
+                actualEventArgs = eventArgs;
+                waitHandle.Set();
+            };
+            channel.BasicConsume(queue.QueueName, autoAck: true, consumer: consumer);
+            var sut = new RabbitMqEventBus(connection.CreateModel());
+
+            // Act
+            sut.BasicPublish(new EventMessage
+            {
+                Body = "the message",
+                RoutingKey = TestContext.TestName,
+                Topic = topicName
+            });
+
+            // Assert  
+            var handled = waitHandle.WaitOne(1000);
+            Assert.IsTrue(handled);
+            Assert.AreEqual("the message", Encoding.UTF8.GetString(actualEventArgs.Body));
+            Assert.AreEqual(topicName, actualEventArgs.Exchange);
+            Assert.AreEqual(TestContext.TestName, actualEventArgs.RoutingKey);
         }
     }
 }

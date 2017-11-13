@@ -7,9 +7,9 @@ namespace Grabbit.EventProcessing.EventInterfaces
 {
     public interface IEventBus
     {
-        void PublishEventAsync(EventMessage message);
+        void BasicPublish(EventMessage message);
 
-        void ConsumeEvent(string topic, string routing, Action<EventMessage> callback);
+        void BasicConsume(string topic, string routing, Action<EventMessage> callback);
 
     }
 }
