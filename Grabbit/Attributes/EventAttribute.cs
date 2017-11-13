@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Grabbit
+namespace Grabbit.Attributes
 {
-    interface IEventPublisher
+    public class EventAttribute : Attribute
     {
+
     }
 }
