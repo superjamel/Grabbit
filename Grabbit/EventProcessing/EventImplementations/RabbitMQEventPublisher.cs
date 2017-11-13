@@ -14,7 +14,7 @@ namespace Grabbit.EventProcessing.EventImplementations
             throw new NotImplementedException();
         }
         /// <summary>
-        /// TODO From object to json, json to byte array
+        /// Converts the given object to a byte.
         /// </summary>
         /// <returns></returns>
         private byte[] ConvertObjectToByte(object objectToConvert)
