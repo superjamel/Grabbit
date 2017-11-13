@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Grabbit.Test
 {
     [TestClass]
-    public class EventPublisherTest
+    public class EventBusTest
     {
         [TestMethod]
         public void Consume_WhenMessageIsPublished_ExecuteMessage()
