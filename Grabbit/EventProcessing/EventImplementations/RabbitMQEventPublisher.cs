@@ -1,5 +1,6 @@
 ﻿using Grabbit.EventProcessing.EventInterfaces;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,13 @@ namespace Grabbit.EventProcessing.EventImplementations
 {
     public class RabbitMQEventPublisher : IEventPublisher
     {
-        public Task PublishEventAsync(EventMessage eventBody,string routingKey)
+        private IModel Model { get; set; }
+
+        public RabbitMQEventPublisher(IModel model)
+        {
+            Model = model;
+        }
+        public Task PublishEventAsync(EventMessage eventBody)
         {
            
             throw new NotImplementedException();

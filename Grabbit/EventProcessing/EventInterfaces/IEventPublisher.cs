@@ -7,7 +7,7 @@ namespace Grabbit.EventProcessing.EventInterfaces
 {
     public interface IEventPublisher
     {
-        Task PublishEventAsync(EventMessage message, string routingKey);
+        Task PublishEventAsync(EventMessage message);
         
     }
 }
