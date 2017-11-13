@@ -30,6 +30,7 @@ namespace Grabbit.EventProcessing.EventImplementations
         public void BasicConsume(string topic, string routing, Action<EventMessage> callback)
         {
             var queueName = Channel.QueueDeclare().QueueName;
+            Channel.ExchangeDeclare(topic, "topic");
             Channel.QueueBind(queueName, topic, routing);
 
             var consumer = new EventingBasicConsumer(Channel);
