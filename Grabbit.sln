@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grabbit", "Grabbit\Grabbit.csproj", "{53C63067-D8A1-4331-8101-259D6B358F9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grabbit.Test", "Grabbit.Test\Grabbit.Test.csproj", "{456D84B9-00FF-4689-9218-FB7283ED552D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53C63067-D8A1-4331-8101-259D6B358F9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C63067-D8A1-4331-8101-259D6B358F9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C63067-D8A1-4331-8101-259D6B358F9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C63067-D8A1-4331-8101-259D6B358F9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{456D84B9-00FF-4689-9218-FB7283ED552D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{456D84B9-00FF-4689-9218-FB7283ED552D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{456D84B9-00FF-4689-9218-FB7283ED552D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{456D84B9-00FF-4689-9218-FB7283ED552D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88A1764A-095C-414C-9647-12E8BCDC7D7B}
+	EndGlobalSection
+EndGlobal
