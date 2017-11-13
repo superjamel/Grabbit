@@ -16,5 +16,10 @@ namespace Grabbit.Test.FakeTestClasses
         {
             message.WaitHandle.Set();
         }
+
+        public void OtherMethod(WaitHandleEventMessage message)
+        {
+            // Should not be called
+        }
     }
 }

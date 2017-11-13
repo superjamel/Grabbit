@@ -19,5 +19,16 @@ namespace Grabbit.Test
             var methodNames = actualMethods.Select(mi => mi.Name).ToList();
             CollectionAssert.Contains(methodNames, "HandleEvent");
         }
+
+        [TestMethod]
+        public void GetAllMethodsWithAttribute_GivenTestController_ShouldNotReturnMethodWithoutAttr()
+        {
+            var sut = new EventAttributeBinder();
+
+            var actualMethods = sut.GetAllMethodsWithEventAttribute();
+
+            var methodNames = actualMethods.Select(mi => mi.Name).ToList();
+            CollectionAssert.DoesNotContain(methodNames, "OtherMethod");
+        }
     }
 }
