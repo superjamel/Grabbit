@@ -1,0 +1,2 @@
+# Grabbit
+A rabbitMQ implementation
