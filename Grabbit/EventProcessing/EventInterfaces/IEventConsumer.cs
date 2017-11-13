@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Grabbit.EventProvessing.EventInterfaces
+namespace Grabbit.EventProcessing.EventInterfaces
 {
     interface IEventConsumer
     {
-    }s
+    }
 }
