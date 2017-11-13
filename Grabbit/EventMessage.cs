@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Grabbit
 {
@@ -17,9 +18,8 @@ namespace Grabbit
         /// <returns></returns>
         public byte[] ToByteArray()
         {
-            string jsonValue = JsonConvert.SerializeObject(this);
-            byte[] byteValue = Encoding.UTF8.GetBytes(jsonValue);
-            return byteValue;
+            var jsonValue = JsonConvert.SerializeObject(this);
+            return Encoding.UTF8.GetBytes(jsonValue);
         }
     }
 }

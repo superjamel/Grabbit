@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace Grabbit.EventProcessing.EventInterfaces
 {
-    public interface IEventPublisher
+    public interface IEventBus
     {
         Task PublishEventAsync(EventMessage message);
-        
+
+        void ConsumeEvent(string topic, string routing, Action<EventMessage> callback);
+
     }
 }
