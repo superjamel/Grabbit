@@ -1,12 +1,8 @@
 ﻿using Grabbit.EventProcessing.EventImplementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RabbitMQ.Client;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using RabbitMQ.Client.Events;
 
 namespace Grabbit.Test
@@ -20,6 +16,7 @@ namespace Grabbit.Test
         public void BasicConsume_WhenMessagePublished_ExecutesConsume()
         {
             // Arrange
+            var topicName = TestContext.TestName + "-topic";
             var connectionFactory = new ConnectionFactory { HostName = "localhost" };
             var connection = connectionFactory.CreateConnection();
             var sut = new RabbitMqEventBus(connection.CreateModel());
@@ -27,13 +24,13 @@ namespace Grabbit.Test
             var waitHandle = new ManualResetEvent(false);
 
             // Act
-            sut.BasicConsume("log_topic", "*.log.*", eventMessage =>
+            sut.BasicConsume(topicName, "*.log.*", eventMessage =>
             {
                 caughtEvent = eventMessage;
                 waitHandle.Set();
             });
             var channel = connection.CreateModel();
-            channel.BasicPublish(exchange: "log_topic",
+            channel.BasicPublish(exchange: topicName,
                 routingKey: "localhost.log.info",
                 basicProperties: null,
                 body: Encoding.UTF8.GetBytes("message body"));
@@ -43,7 +40,7 @@ namespace Grabbit.Test
             Assert.IsTrue(isReceived);
             Assert.AreEqual("message body", caughtEvent.Body);
             Assert.AreEqual("localhost.log.info", caughtEvent.RoutingKey);
-            Assert.AreEqual("log_topic", caughtEvent.Topic);
+            Assert.AreEqual(topicName, caughtEvent.Topic);
         }
 
         [TestMethod]
