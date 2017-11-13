@@ -10,6 +10,7 @@ namespace Grabbit
     {
         public string Body { get; set; }
         public string RoutingKey { get; set; }
+        public string Topic { get; set; }
 
 
         /// <summary>

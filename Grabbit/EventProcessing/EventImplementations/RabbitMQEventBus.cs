@@ -17,7 +17,7 @@ namespace Grabbit.EventProcessing.EventImplementations
         {
             Channel = channel;
         }
-        public Task PublishEventAsync(EventMessage eventBody)
+        public void PublishEventAsync(EventMessage eventBody)
         {
             throw new NotImplementedException();
         }
@@ -32,7 +32,12 @@ namespace Grabbit.EventProcessing.EventImplementations
             {
                 var body = ea.Body;
                 var message = Encoding.UTF8.GetString(body);
-                callback.Invoke(JsonConvert.DeserializeObject<EventMessage>(message));
+                callback.Invoke(new EventMessage()
+                {
+                    Body = message,
+                    RoutingKey = ea.RoutingKey,
+                    Topic = ea.Exchange
+                });
             };
 
             Channel.BasicConsume(queue: queueName,
