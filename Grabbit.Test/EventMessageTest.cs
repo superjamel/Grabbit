@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Grabbit.Test
 {
     [TestClass]
-    public class ObjectExtensionTest
+    public class EventMessageTest
     {
         [TestMethod]
         public void ToByteArray_GivenEventMessageWith1Property_ShouldConvertToString()
@@ -17,7 +17,7 @@ namespace Grabbit.Test
             var expectedString = JsonConvert.SerializeObject(new EventMessage() {Body = "test"});
             var expectedByteArray = Encoding.UTF8.GetBytes(expectedString);
 
-            Assert.AreEqual(expectedByteArray, actual);
+            CollectionAssert.AreEqual(expectedByteArray, actual);
         }
     }
 }
